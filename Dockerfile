@@ -1,4 +1,5 @@
-FROM python:3-alpine
+ARG BASE_IMAGE=python:3-alpine
+FROM $BASE_IMAGE as base
 
 WORKDIR /app
 
