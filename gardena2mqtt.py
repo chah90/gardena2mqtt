@@ -32,7 +32,7 @@ def subscribe_everything():
 
 
 # callback when the broker responds to our connection request.
-def on_mqtt_connect(client, userdata, flags, rc):
+def on_mqtt_connect(client, userdata, flags, reason_code, properties):
     global mqttclientconnected
     mqttclientconnected = True
     logging.info("Connected to MQTT host")
@@ -45,7 +45,7 @@ def on_mqtt_connect(client, userdata, flags, rc):
 
 
 # callback when the client disconnects from the broker.
-def on_mqtt_disconnect(client, userdata, rc):
+def on_mqtt_disconnect(client, userdata, disconnect_flags, reason_code, properties):
     global mqttclientconnected
     mqttclientconnected = False
     logging.info("Disconnected from MQTT host")
@@ -191,7 +191,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGTERM, shutdown)
 
     logging.info('===== Prepare MQTT Client =====')
-    mqttclient = mqtt.Client(mqttclientid)
+    mqttclient = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, mqttclientid)
     mqttclient.username_pw_set(mqttuser, mqttpassword)
     mqttclient.on_connect = on_mqtt_connect
     mqttclient.on_disconnect = on_mqtt_disconnect
