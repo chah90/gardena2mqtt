@@ -1,2 +1,3 @@
+oauthlib # Required by py-smart-gardena but not installed with ...
 py-smart-gardena
 paho-mqtt
