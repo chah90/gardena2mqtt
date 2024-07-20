@@ -178,9 +178,8 @@ if __name__ == "__main__":
             while 1:
                 time.sleep(3600)
 
-    gardenauser = os.getenv("GARDENA_USER")
-    gardenapassword = os.getenv("GARDENA_PASSWORD")
-    gardenaapikey = os.getenv("GARDENA_APIKEY")
+    gardenaclientid = os.getenv("GARDENA_CLIENT_ID")
+    gardenaclientsecret = os.getenv("GARDENA_CLIENT_SECRET")
     mqttprefix = os.getenv("PREFIX", "gardena2mqtt")
     mqtthost = os.getenv("HOST", "localhost")
     mqttport = os.getenv("PORT", 1883)
@@ -205,7 +204,7 @@ if __name__ == "__main__":
 
     logging.info('===== Prepare SmartSystem Client =====')
     logging.info(' - create')
-    smart_system = SmartSystem(email=gardenauser, password=gardenapassword, client_id=gardenaapikey)
+    smart_system = SmartSystem(client_id=gardenaclientid, client_secret=gardenaclientsecret)
     logging.info(' - authenticate')
     smart_system.authenticate()
     logging.info(' - update location list')
