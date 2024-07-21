@@ -13,23 +13,21 @@ def publish_device(device):
     for attrName in vars(device):
         if not attrName.startswith('_') and attrName not in ('location', 'callbacks'):
             infos[attrName] = getattr(device, attrName)
-    mqttclient.publish(f"{mqttprefix}/{device.location.name}/{device.name}", json.dumps(infos))
+    mqttclient.publish(f"{mqttprefix}/{device.name}", json.dumps(infos))
 
 def publish_everything():
-    global smart_system
-    for location in smart_system.locations.values():
-        for device in location.devices.values():
-            publish_device(device)
+    global location
+    for device in location.devices.values():
+        publish_device(device)
 
 def subscribe_device(device):
     if mqttclientconnected:
-        mqttclient.subscribe(f"{mqttprefix}/{device.location.name}/{device.name}/control")
+        mqttclient.subscribe(f"{mqttprefix}/{device.name}/control")
 
 def subscribe_everything():
-    global smart_system
-    for location in smart_system.locations.values():
-        for device in location.devices.values():
-            subscribe_device(device)
+    global location
+    for device in location.devices.values():
+        subscribe_device(device)
 
 
 # callback when the broker responds to our connection request.
