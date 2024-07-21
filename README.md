@@ -21,9 +21,8 @@ docker run \
     -d \
     --name gardena2mqtt \
     --restart=always \
-    -e GARDENA_USER="GardenaUserName" \
-    -e GARDENA_PASSWORD="GardenaPassword" \
-    -e GARDENA_APIKEY="GardenaApiKey" \
+    -e GARDENA_CLIENT_ID="GardenaApplicationKey" \
+    -e GARDENA_CLIENT_SECRET="GardenaApplicationSecret" \
     -e HOST="192.168.1.x" \
     -e PORT=1883 \
     -e PREFIX="gardena2mqtt" \
@@ -41,9 +40,8 @@ services:
     container_name: gardena2mqtt
     image: domochip/gardena2mqtt
     environment:
-    - GARDENA_USER=GardenaUserName
-    - GARDENA_PASSWORD=GardenaPassword
-    - GARDENA_APIKEY=GardenaApiKey
+    - GARDENA_CLIENT_ID=GardenaApplicationKey
+    - GARDENA_CLIENT_SECRET=GardenaApplicationSecret
     - HOST=192.168.1.x
     - PORT=1883
     - PREFIX=gardena2mqtt
@@ -58,9 +56,8 @@ services:
 ### Parameters explanation
 
 #### Environment variables
-* `GARDENA_USER`: Gardena username (it's an email address)
-* `GARDENA_PASSWORD`: Gardena password
-* `GARDENA_APIKEY`: Gardena Application key you got at https://developer.husqvarnagroup.cloud/applications
+* `GARDENA_CLIENT_ID`: Gardena Application key you got at https://developer.husqvarnagroup.cloud/applications
+* `GARDENA_CLIENT_SECRET`: Gardena Secret
 * `HOST`: IP address or hostname of your MQTT broker
 * `PORT`: **Optional**, port of your MQTT broker
 * `PREFIX`: **Optional**, prefix used in topics for subscribe/publish
@@ -79,9 +76,9 @@ Status of gardena2mqtt is published to the topic **gardena2mqtt/connected** usin
 ## Devices state
 
 Devices informations and state are published to individual topics following this scheme: 
-**gardena2mqtt/Location/Device**
+**gardena2mqtt/Device**
 
-ex : **gardena2mqtt/MyGarden/MySileno**
+ex : **gardena2mqtt/MySileno**
 
 Devices informations are published when:
  - gardena2mqtt starts
@@ -91,13 +88,13 @@ Devices informations are published when:
 ## Device control
 
 You can control your Gardena devices by sending command (JSON format) to the control topic of each device: 
-**gardena2mqtt/Location/Device/control**
+**gardena2mqtt/Device/control**
 And receive command execution result on: 
-**gardena2mqtt/Location/Device/result**
+**gardena2mqtt/Device/result**
 
 ex : 
-**gardena2mqtt/MyGarden/MySileno/control**
-**gardena2mqtt/MyGarden/MySileno/result**
+**gardena2mqtt/MySileno/control**  
+**gardena2mqtt/MySileno/result**
 
 ### Mower
 
