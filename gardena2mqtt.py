@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import time
 import os
@@ -149,7 +150,7 @@ def on_device_update(device):
 
 
 def shutdown(signum=None, frame=None):
-    smart_system.quit()
+    eventloop.run_until_complete(smart_system.quit())
     if mqttclientconnected:
         mqttclient.publish(f"{mqttprefix}/connected", "0", 0, True)
     mqttclient.disconnect()
@@ -205,13 +206,17 @@ if __name__ == "__main__":
     logging.info('===== Prepare SmartSystem Client =====')
     logging.info(' - create')
     smart_system = SmartSystem(client_id=gardenaclientid, client_secret=gardenaclientsecret)
+    eventloop = asyncio.new_event_loop()
+
     logging.info(' - authenticate')
-    smart_system.authenticate()
+    eventloop.run_until_complete(smart_system.authenticate())
     logging.info(' - update location list')
-    smart_system.update_locations()
-    for location in smart_system.locations.values():
-        logging.info(f' - update device list for location : {location.name}')
-        smart_system.update_devices(location)
+    eventloop.run_until_complete(smart_system.update_locations())
+
+    location = list(smart_system.locations.values())[0]
+
+    logging.info(' - update device list')
+    eventloop.run_until_complete(smart_system.update_devices(location))
 
     # add callbacks
     smart_system.add_ws_status_callback(on_ws_status_changed)
@@ -236,8 +241,4 @@ if __name__ == "__main__":
 
 
     logging.info('===== Connection To Gardena SmartSystem =====')
-    for locationid in smart_system.locations:
-        smart_system.start_ws(smart_system.locations[locationid])
-
-    # tie to mqtt client
-    mqttthread.join()
+    eventloop.run_until_complete(smart_system.start_ws(location))
