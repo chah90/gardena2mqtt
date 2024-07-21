@@ -4,7 +4,7 @@ You need one or more Gardena Smart system devices : https://www.gardena.com/int/
 Follow the official documentation to have API accesses for Authentication and GARDENA : https://developer.husqvarnagroup.cloud/docs/get-started  
 This application needs to be connected to Authentication API AND GARDENA smart system API like this : 
 ![Application](application.png)  
-("Create application" button -> Fill In Name only -> "Create" button -> "+Connect new API" button -> Add both API)
+
 
 This image uses the new Gardena API which allows to be informed immediately when an event occurs on any Smart System device.
 
