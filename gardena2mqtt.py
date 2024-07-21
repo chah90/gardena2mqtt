@@ -144,13 +144,8 @@ def on_device_update(device):
     if mqttclientconnected:
         publish_device(device)
 
-
 def shutdown(signum=None, frame=None):
-    eventloop.run_until_complete(smart_system.quit())
-    if mqttclientconnected:
-        mqttclient.publish(f"{mqttprefix}/connected", "0", 0, True)
-    mqttclient.disconnect()
-    mqttthread.join()
+    eventloop.stop()
 
 
 
@@ -184,8 +179,6 @@ if __name__ == "__main__":
     mqttuser = os.getenv("USER")
     mqttpassword = os.getenv("PASSWORD")
 
-    signal.signal(signal.SIGINT, shutdown)
-    signal.signal(signal.SIGTERM, shutdown)
 
     logging.info('===== Prepare MQTT Client =====')
     mqttclient = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, mqttclientid)
@@ -203,6 +196,10 @@ if __name__ == "__main__":
     logging.info(' - create')
     smart_system = SmartSystem(client_id=gardenaclientid, client_secret=gardenaclientsecret)
     eventloop = asyncio.new_event_loop()
+
+    # register signal handlers to stop the container
+    eventloop.add_signal_handler(signal.SIGINT, shutdown)
+    eventloop.add_signal_handler(signal.SIGTERM, shutdown)
 
     logging.info(' - authenticate')
     eventloop.run_until_complete(smart_system.authenticate())
@@ -228,13 +225,36 @@ if __name__ == "__main__":
 
     # Wait up to 5 seconds for MQTT connection
     for i in range(50):
-        if mqttclientconnected == True:
+        if mqttclientconnected:
             break
         time.sleep(0.1)
 
-    if mqttclientconnected == False:
-        shutdown()
+    if not mqttclientconnected:
+        logging.error('Failed to connect to MQTT broker')
+        exit(1)
 
 
     logging.info('===== Connection To Gardena SmartSystem =====')
-    eventloop.run_until_complete(smart_system.start_ws(location))
+    wstask = eventloop.create_task(smart_system.start_ws(location))
+
+    # mqtt is running in a separate Thread and now main one is executing smart_system in event loop (waiting for a stop)
+    eventloop.run_forever()
+
+    # stop the smart system
+    eventloop.run_until_complete(smart_system.quit())
+    # # wait for the websocket task to finish
+    # eventloop.run_until_complete(wstask)
+
+    # due to a bug in the library (1.3.9 currently), we need to cancel the task and then run the event loop until it's done
+    wstask.cancel()
+    try:
+        eventloop.run_until_complete(wstask)
+    except:
+        pass
+
+    eventloop.close()
+
+    if mqttclientconnected:
+        mqttclient.publish(f"{mqttprefix}/connected", "0", 0, True)
+    mqttclient.disconnect()
+    mqttthread.join()
