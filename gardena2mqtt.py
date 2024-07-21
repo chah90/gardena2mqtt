@@ -54,6 +54,8 @@ def on_mqtt_disconnect(client, userdata, disconnect_flags, reason_code, properti
 # callback when a message has been received on a topic that the client subscribes to.
 def on_mqtt_message(client, userdata, msg):
 
+    global location
+
     splittedTopic = msg.topic.split('/')
     splittedTopic[len(splittedTopic)-1] = 'result'
     resultTopic = '/'.join(splittedTopic)
@@ -66,12 +68,8 @@ def on_mqtt_message(client, userdata, msg):
         return
 
     # looking for the right device
-    thisLocationName = splittedTopic[len(splittedTopic)-3]
-    for location in smart_system.locations.values():
-        if location.name == thisLocationName:
-            thisLocation = location
     thisDeviceName = splittedTopic[len(splittedTopic)-2]
-    for device in thisLocation.devices.values():
+    for device in location.devices.values():
         if device.name == thisDeviceName:
             thisDevice = device
     
