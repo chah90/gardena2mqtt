@@ -99,7 +99,7 @@ ex :
 ### Mower
 
  - `{"command":"start_seconds_to_override", "duration":3600}`: Manual operation (duration is seconds and must be positive multiple of 60)
- - `{"command":"start_dont_override", "duration":3600}`: Automatic operation.
+ - `{"command":"start_dont_override"}`: Automatic operation.
  - `{"command":"park_until_next_task"}`: Cancel the current operation and return to charging station.
  - `{"command":"park_until_further_notice"}`: Cancel the current operation, return to charging station, ignore schedule.
 
