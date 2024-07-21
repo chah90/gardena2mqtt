@@ -120,11 +120,11 @@ def on_mqtt_message(client, userdata, msg):
     # run the command
     try:
         if len(params) == 0:
-            thisDeviceMethod()
+            asyncio.run(thisDeviceMethod())
         elif len(params) == 1:
-            thisDeviceMethod(params[0])
+            asyncio.run(thisDeviceMethod(params[0]))
         elif len(params) == 2:
-            thisDeviceMethod(params[0], params[1])
+            asyncio.run(thisDeviceMethod(params[0], params[1]))
     except:
         logging.exception(f'execution of the command failed: {decodedPayload}')
         mqttclient.publish(resultTopic, json.dumps({"result":"error", "reason":"execution of the command failed", "datetime":time.strftime("%Y-%m-%d %H:%M:%S"), "request":decodedPayload}, ensure_ascii=False))
