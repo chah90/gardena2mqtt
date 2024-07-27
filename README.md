@@ -1,3 +1,5 @@
+![GitHub Release](https://img.shields.io/github/v/release/Domochip/gardena2mqtt)
+![Home Assistant](https://img.shields.io/badge/home_assistant-2023.9-blue.svg?logo=homeassistant)
 [![Publish Docker image](https://github.com/Domochip/gardena2mqtt/actions/workflows/docker-publish-release.yml/badge.svg)](https://github.com/Domochip/gardena2mqtt/actions/workflows/docker-publish-release.yml)
 [![Publish Docker Dev image](https://github.com/Domochip/gardena2mqtt/actions/workflows/docker-publish-dev.yml/badge.svg)](https://github.com/Domochip/gardena2mqtt/actions/workflows/workflows/docker-publish-dev.yml)
 # Prerequisites
