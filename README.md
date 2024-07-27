@@ -1,4 +1,4 @@
-[![Publish Docker Dev image](actions/workflows/docker-publish-release.yml/badge.svg)](actions/workflows/docker-publish-release.yml)
+[![Publish Docker Dev image](https://github.com/Domochip/gardena2mqtt/actions/workflows/docker-publish-release.yml/badge.svg)](actions/workflows/docker-publish-release.yml)
 # Prerequisites
 
 You need one or more Gardena Smart system devices : https://www.gardena.com/int/products/smart-system/smart-system  
