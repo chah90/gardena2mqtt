@@ -29,6 +29,8 @@ docker run \
     -e MQTT_CLIENTID="gardena2mqttclid" \
     -e MQTT_USER="usr" \
     -e MQTT_PASSWORD="pass" \
+    -e HOMEASSISTANT="1" \
+    -e HOMEASSISTANT_DISCOVERY="homeassistant" \
     domochip/gardena2mqtt
 ```
 For Docker-Compose, use the following yaml:
@@ -48,6 +50,8 @@ services:
     - MQTT_CLIENTID=gardena2mqttclid
     - MQTT_USER=mqtt_username
     - MQTT_PASSWORD=mqtt_password
+    - HOMEASSISTANT=1
+    - HOMEASSISTANT_DISCOVERY_TOPIC=homeassistant
     restart: always
 ```
 
@@ -64,6 +68,8 @@ services:
 * `MQTT_CLIENTID`: **Optional**, MQTT client id to use
 * `MQTT_USER`: **Optional**, MQTT username
 * `MQTT_PASSWORD`: **Optional**, MQTT password
+* `HOMEASSISTANT`: **Optional**, enable/disable Home Assistant Discovery (enabled by default)
+* `HOMEASSISTANT_DISCOVERY_TOPIC`: **Optional**, Home Assistant discovery base topic
 
 # Topics
 ## gardena2mqtt status
