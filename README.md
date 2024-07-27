@@ -23,12 +23,12 @@ docker run \
     --restart=always \
     -e GARDENA_CLIENT_ID="GardenaApplicationKey" \
     -e GARDENA_CLIENT_SECRET="GardenaApplicationSecret" \
-    -e HOST="192.168.1.x" \
-    -e PORT=1883 \
-    -e PREFIX="gardena2mqtt" \
-    -e CLIENTID="gardena2mqttclid" \
-    -e USER="usr" \
-    -e PASSWORD="pass" \
+    -e MQTT_HOST="192.168.1.x" \
+    -e MQTT_PORT=1883 \
+    -e MQTT_PREFIX="gardena2mqtt" \
+    -e MQTT_CLIENTID="gardena2mqttclid" \
+    -e MQTT_USER="usr" \
+    -e MQTT_PASSWORD="pass" \
     domochip/gardena2mqtt
 ```
 For Docker-Compose, use the following yaml:
@@ -42,12 +42,12 @@ services:
     environment:
     - GARDENA_CLIENT_ID=GardenaApplicationKey
     - GARDENA_CLIENT_SECRET=GardenaApplicationSecret
-    - HOST=192.168.1.x
-    - PORT=1883
-    - PREFIX=gardena2mqtt
-    - CLIENTID=gardena2mqttclid
-    - USER=mqtt_username
-    - PASSWORD=mqtt_password
+    - MQTT_HOST=192.168.1.x
+    - MQTT_PORT=1883
+    - MQTT_PREFIX=gardena2mqtt
+    - MQTT_CLIENTID=gardena2mqttclid
+    - MQTT_USER=mqtt_username
+    - MQTT_PASSWORD=mqtt_password
     restart: always
 ```
 
@@ -58,12 +58,12 @@ services:
 #### Environment variables
 * `GARDENA_CLIENT_ID`: Gardena Application key you got at https://developer.husqvarnagroup.cloud/applications
 * `GARDENA_CLIENT_SECRET`: Gardena Secret
-* `HOST`: IP address or hostname of your MQTT broker
-* `PORT`: **Optional**, port of your MQTT broker
-* `PREFIX`: **Optional**, prefix used in topics for subscribe/publish
-* `CLIENTID`: **Optional**, MQTT client id to use
-* `USER`: **Optional**, MQTT username
-* `PASSWORD`: **Optional**, MQTT password
+* `MQTT_HOST`: IP address or hostname of your MQTT broker
+* `MQTT_PORT`: **Optional**, port of your MQTT broker
+* `MQTT_PREFIX`: **Optional**, prefix used in topics for subscribe/publish
+* `MQTT_CLIENTID`: **Optional**, MQTT client id to use
+* `MQTT_USER`: **Optional**, MQTT username
+* `MQTT_PASSWORD`: **Optional**, MQTT password
 
 # Topics
 ## gardena2mqtt status
