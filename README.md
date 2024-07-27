@@ -1,5 +1,5 @@
 [![Publish Docker image](https://github.com/Domochip/gardena2mqtt/actions/workflows/docker-publish-release.yml/badge.svg)](https://github.com/Domochip/gardena2mqtt/actions/workflows/docker-publish-release.yml)
-[![Publish Docker Dev image](https://github.com/Domochip/gardena2mqtt/blob/master/.github/workflows/docker-publish-dev.yml/badge.svg)](https://github.com/Domochip/gardena2mqtt/blob/master/.github/workflows/docker-publish-dev.yml)
+[![Publish Docker Dev image](https://github.com/Domochip/gardena2mqtt/actions/workflows/docker-publish-dev.yml/badge.svg)](https://github.com/Domochip/gardena2mqtt/actions/workflows/workflows/docker-publish-dev.yml)
 # Prerequisites
 
 You need one or more Gardena Smart system devices : https://www.gardena.com/int/products/smart-system/smart-system  
