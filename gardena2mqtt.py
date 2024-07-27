@@ -172,12 +172,12 @@ if __name__ == "__main__":
 
     gardenaclientid = os.getenv("GARDENA_CLIENT_ID")
     gardenaclientsecret = os.getenv("GARDENA_CLIENT_SECRET")
-    mqttprefix = os.getenv("PREFIX", "gardena2mqtt")
-    mqtthost = os.getenv("HOST", "localhost")
-    mqttport = os.getenv("PORT", 1883)
-    mqttclientid = os.getenv("CLIENTID", "gardena2mqtt")
-    mqttuser = os.getenv("USER")
-    mqttpassword = os.getenv("PASSWORD")
+    mqttprefix = os.getenv("MQTT_PREFIX", "gardena2mqtt")
+    mqtthost = os.getenv("MQTT_HOST", "localhost")
+    mqttport = os.getenv("MQTT_PORT", 1883)
+    mqttclientid = os.getenv("MQTT_CLIENTID", "gardena2mqtt")
+    mqttuser = os.getenv("MQTT_USER")
+    mqttpassword = os.getenv("MQTT_PASSWORD")
 
 
     logging.info('===== Prepare MQTT Client =====')
