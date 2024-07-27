@@ -2,10 +2,7 @@ version: '3.8'
 
 services:
   gardena2mqtt:
-    build: 
-      context: ..
-      args:
-        - BASE_IMAGE=mcr.microsoft.com/devcontainers/python:3
+    image: mcr.microsoft.com/devcontainers/python:3
     volumes:
       - ..:/app:cached
 

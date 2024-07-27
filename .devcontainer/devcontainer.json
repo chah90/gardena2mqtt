@@ -3,7 +3,7 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "gardena2mqtt",
 	"workspaceFolder": "/app",
-	"postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}", // to avoid Git unsafe directory warning
+	"postStartCommand": "pip3 install --user -r requirements.txt && git config --global --add safe.directory ${containerWorkspaceFolder}", // to avoid Git unsafe directory warning
 	"forwardPorts": [
 		1883
 	]
