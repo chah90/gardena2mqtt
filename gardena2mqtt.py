@@ -9,7 +9,7 @@ from gardena.smart_system import SmartSystem
 import paho.mqtt.client as mqtt
 
 def publish_hass_discovery_gardena2mqtt():
-    mqttclient.publish(f"{homeassistantdiscovery}/binary_sensor/gardena2mqtt_Connectivity/config", json.dumps({
+    mqttclient.publish(f"{homeassistantdiscoverytopic}/binary_sensor/gardena2mqtt_Connectivity/config", json.dumps({
         "~": mqttprefix,
         "name": "Gardena2MQTT",
         "unique_id": "gardena2mqtt_connectivity",
@@ -27,7 +27,7 @@ def publish_hass_discovery_gardena2mqtt():
 
 def publish_hass_discovery_mower(device):
     # Lawn Mower
-    mqttclient.publish(f"{homeassistantdiscovery}/lawn_mower/gardena2mqtt_{device.serial}/config", json.dumps({
+    mqttclient.publish(f"{homeassistantdiscoverytopic}/lawn_mower/gardena2mqtt_{device.serial}/config", json.dumps({
         "~": f"{mqttprefix}/{device.name}",
         "name": "Lawn Mower",
         "unique_id": device.serial,
@@ -51,7 +51,7 @@ def publish_hass_discovery_mower(device):
         "start_mowing_command_template": '{"command":"start_dont_override"}'
     }))
     # Connectivity
-    mqttclient.publish(f"{homeassistantdiscovery}/binary_sensor/gardena2mqtt_{device.serial}_Connectivity/config", json.dumps({
+    mqttclient.publish(f"{homeassistantdiscoverytopic}/binary_sensor/gardena2mqtt_{device.serial}_Connectivity/config", json.dumps({
         "~": mqttprefix,
         "name": "Connectivity",
         "unique_id": f"{device.serial}_connectivity",
@@ -67,7 +67,7 @@ def publish_hass_discovery_mower(device):
         }
     }))
     # Battery
-    mqttclient.publish(f"{homeassistantdiscovery}/sensor/gardena2mqtt_{device.serial}_Battery/config", json.dumps({
+    mqttclient.publish(f"{homeassistantdiscoverytopic}/sensor/gardena2mqtt_{device.serial}_Battery/config", json.dumps({
         "~": f"{mqttprefix}/{device.name}",
         "name": "Battery",
         "unique_id": f"{device.serial}_battery",
@@ -267,7 +267,7 @@ if __name__ == "__main__":
     mqttuser = os.getenv("MQTT_USER")
     mqttpassword = os.getenv("MQTT_PASSWORD")
     homeassistant = os.getenv("HOMEASSISTANT", 1)
-    homeassistantdiscovery = os.getenv("HOMEASSISTANT_DISCOVERY", "homeassistant")
+    homeassistantdiscoverytopic = os.getenv("HOMEASSISTANT_DISCOVERY_TOPIC", "homeassistant")
 
 
     logging.info('===== Prepare MQTT Client =====')
