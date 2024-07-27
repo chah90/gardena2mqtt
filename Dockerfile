@@ -5,7 +5,9 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
-RUN pip install -r requirements.txt
+RUN apk add --update --no-cache --virtual .tmp-build-deps gcc musl-dev libffi-dev \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apk del .tmp-build-deps
 
 COPY gardena2mqtt.py .
 
