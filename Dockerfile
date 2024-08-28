@@ -12,3 +12,5 @@ RUN apk add --update --no-cache --virtual .tmp-build-deps gcc musl-dev libffi-de
 COPY gardena2mqtt.py .
 
 ENTRYPOINT ["python", "/app/gardena2mqtt.py"]
+#ENTRYPOINT ["sh"]
+#ENTRYPOINT ["tail", "-f", "/dev/null"]

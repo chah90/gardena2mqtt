@@ -269,6 +269,7 @@ if __name__ == "__main__":
     homeassistant = os.getenv("HOMEASSISTANT", 1)
     homeassistantdiscoverytopic = os.getenv("HOMEASSISTANT_DISCOVERY_TOPIC", "homeassistant")
 
+    logging.info(f"Use mqtt config {mqtthost}:{mqttport}")
 
     logging.info('===== Prepare MQTT Client =====')
     mqttclient = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, mqttclientid)
